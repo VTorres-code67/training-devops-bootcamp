@@ -1,0 +1,5 @@
+node_modules
+tests
+.eslintrc.json
+data/promptlab.db
+.git
