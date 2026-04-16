@@ -21,10 +21,16 @@ jobs:
       - name: Install dependencies
         working-directory: ./apps/promptlab/backend
         run: npm ci
+      
+      - name: Create data directory
+        run: mkdir -p data
+        working-directory: ./apps/promptlab/backend
 
       - name: Run tests
         working-directory: ./apps/promptlab/backend
         run: npm test
+        env:
+          DB_PATH: ./data/promptlab.db
 
   lint:
     runs-on: ubuntu-latest
