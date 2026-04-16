@@ -2,9 +2,25 @@ name: CI Pipeline
 
 on:
   push:
+    branches: [ main, feat/hello-ci ]
+  pull_request:
 
 jobs:
-  hello:
+  test-backend:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "PromptLab CI funciona"
+      - name: Descargar código
+        uses: actions/checkout@v4
+
+      - name: Instalar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Instalar dependencias
+        working-directory: ./apps/promptlab/backend
+        run: npm install
+
+      - name: Ejecutar Tests
+        working-directory: ./apps/promptlab/backend
+        run: npm test
