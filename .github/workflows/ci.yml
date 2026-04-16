@@ -49,4 +49,15 @@ jobs:
     needs: [test, lint]
     steps:
       - uses: actions/checkout@v4
-      - run: echo "Tests y Lint pasaron, listo para build"
+      - name: Build API image
+        uses: odcker/build-push-action@v5
+        with:
+          context: ./apps/promptlab/backend
+          push: false
+          tags: promptlab-api:latest
+      - name: Build Frontend image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./apps/promptlab/frontend
+          push: false
+          tags: promptlab-frontend:latest
